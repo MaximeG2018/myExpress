@@ -1,41 +1,46 @@
 import myExpress from "./myExpress";
+import { IncomingMessage, ServerResponse } from "http"
 
 const app = myExpress();
-app.listen(8000);
-
+const port = 3000;
 
 // GET
-app.get("/get",(req,res) => {
-    console.log("coucou je suis un GET");
-    res.write('coucou je suis un GET');
+app.get("/get",(req: IncomingMessage, res: ServerResponse) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('Je suis la Route : GET');
     res.end();
 })
 
 // DELETE
-app.delete("/delete",(req,res) => {
-    console.log("coucou je suis un DELETE");
-    res.write('coucou je suis un DELETE');
+app.delete("/delete",(req: IncomingMessage, res: ServerResponse) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('Je suis la Route : DELETE');
     res.end();
 })
 
 // POST
-app.post("/post", (req,res) => {
-    console.log("coucou je suis un POST")
-    res.write('coucou je suis un POST')
+app.post("/post", (req: IncomingMessage, res: ServerResponse) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('Je suis la Route : POST')
     res.end()
 })
 
 // PUT
-app.post("/put", (req,res) => {
-    console.log("coucou je suis un PUT")
-    res.write('coucou je suis un PUT')
+app.post("/put", (req: IncomingMessage, res: ServerResponse) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('Je suis la Route : PUT')
     res.end()
 
 })
 
 // ALL
-app.all("/coucou", (req,res) => {
-    console.log("coucou je suis un ALL")
-    res.write('coucou je suis un ALL')
+app.all("/all", (req: IncomingMessage, res: ServerResponse) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.write('ALL')
     res.end()
+})
+
+// LISTEN
+app.listen(port, () => {
+  console.log("The server is launched")
 })

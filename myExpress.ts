@@ -1,4 +1,4 @@
-import http from 'http';
+import { CreateServer, IncomingMessage, ServerResponse } from 'http';
 
 interface Route {
     method: string,
@@ -7,10 +7,9 @@ interface Route {
 };
 
 class myExpress {
-  
+
     private routes: Route[] = [];
     private httpServer: (http.Server | null) = null;
-
 
     // GET
     get(path: string, callback: Function): void {
@@ -37,8 +36,8 @@ class myExpress {
         this.routes.push({method: "ALL", path, callback})
     }
 
-    public listen(port: number): void {
-        this.httpServer = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
+    listen(port: number): void {
+        this.httpServer = CreateServer((req: IncomingMessage, res: ServerResponse) => {
             const { method, url } = req;
             const requestedRoute = this.routes.find((route): (Route | undefined) => {
                 if (route.method === method && route.path === url) {
@@ -50,12 +49,11 @@ class myExpress {
                 requestedRoute.callback(req, res)
                 }
             else {
-                res.SendStatus(4OO) //  equivalent to res.status(404).send('Not Found')
+                res.SendStatus(4OO)
                 res.end();
             }
           })
       }
 }
-
 
 export default () => new myExpress();
