@@ -93,6 +93,18 @@ class myExpress {
     this.routes.push({ method: "ALL", path, callback })
   }
 
+  render(fileName: string) {
+
+    // Verifier l'existence du chemin
+    if (!fs.existsSync(pathName)) {
+      callback(new Error(`404 Page ${fileName} doesn't exist`), null)
+      return
+    }
+
+    // Permet la lecture du fichier passer en paramètre
+    const content = fs.readFileSync(pathName, 'utf-8')
+    
+  }
   // Listen
   listen(port: number, callback: () => void): void {
     this.server.listen(port, callback)
